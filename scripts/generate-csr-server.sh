@@ -1,5 +1,4 @@
 #!/bin/bash
-
 URL=$1
 
 openssl req -config ca/intermediate/openssl.cnf \

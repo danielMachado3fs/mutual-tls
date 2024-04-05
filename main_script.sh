@@ -63,3 +63,30 @@ echo "========================================= CERTIFICADO INTERMEDIÁRIO VERIF
 echo "GERANDO CADEIA DE CONFIANÇA ATRAVÉS DO ROOT E DO CA ======================================"
 sh scripts/generate-ca-chain.sh
 echo "=================================================== CADEIA DE CONFIANÇA CRIADA COM SUCESSO"
+
+######################################################
+#GERANDO E ASSINANDO CERTIFICADO PARA SER UTILIZADO NO SERVIDOR
+echo "GERANDO E ASSINANDO CERTIFICADO E CHAVE PARA SEREM UTILIZADOS NO SERVIDOR ================"
+read -p "Informe domínio do servidor. Será utilizado no nome dos arquivos gerados [minhaempresa.com.br]: " dominio
+dominio=${dominio:-minhaempresa.com.br}
+
+#GERANDO CHAVE
+echo "GERANDO CHAVE PRIVADA ===================================================================="
+source scripts/generate-key-server.sh $dominio
+echo "========================================================= CHAVE PRIVADA GERADA COM SUCESSO"
+
+#GERANDO CERTIFICADO
+echo "GERANDO CERTIFICADO DE SOLICITAÇÃO DE ASSINATURA (CSR) ==================================="
+source scripts/generate-csr-server.sh $dominio
+echo "======================== CERTIFICADO DE SOLICITAÇÃO DE ASSINATURA (CSR) GERADO COM SUCESSO"
+echo "========================================================= CHAVE PRIVADA GERADA COM SUCESSO"
+
+#GERANDO CERTIFICADO
+echo "GERANDO CERTIFICADO DE SOLICITAÇÃO DE ASSINATURA (CSR) ==================================="
+source scripts/generate-cert-server.sh $dominio
+echo "======================== CERTIFICADO DE SOLICITAÇÃO DE ASSINATURA (CSR) GERADO COM SUCESSO"
+
+#ASSINANDO O CSR DO SERVER PARA GERAR O .cert
+echo "ASSINANDO O CSR DO SERVER PARA GERAR O .cert ============================================="
+source scripts/csr-server-sign.sh $dominio
+echo "================================================ (CSR) ASSINADO E .cert GERADO COM SUCESSO"

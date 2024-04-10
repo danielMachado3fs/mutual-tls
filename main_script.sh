@@ -12,6 +12,7 @@ echo "CRIANDO DIRETÓRIOS ======================================================
 sh scripts/prepare-directories.sh
 echo "==========================================================================================================="
 
+echo "############################################ GERANDO UM ROOT CA ############################################"
 ######################################################
 #GERANDO O ARQUIVO DE CONFIGURAÇÃO ca/openssl.cnf
 echo "GERANDO O ARQUIVO DE CONFIGURAÇÃO ca/openssl.cnf =========================================================="
@@ -30,6 +31,8 @@ echo "GERANDO CERTIFICADO DO ROOT ==============================================
 source scripts/generate-root-cert.sh
 echo "==========================================================================================================="
 
+
+echo "######################################## GERANDO UM INTERMEDIATE CA ########################################"
 ######################################################
 #GERANDO O ARQUIVO ca/intermediate/openssl.cnf
 echo "GERANDO O ARQUIVO ca/intermediate/openssl.cnf ============================================================="
@@ -58,12 +61,16 @@ echo "VERIFICANDO SE O CERTIFICADO INTERMEDIÁRIO É VÁLIDO ATRAVÉS DO ROOT ==
 source scripts/intermediate-check-valid.sh
 echo "==========================================================================================================="
 
+
+echo "################################## GERANDO A CADEIA DE CONFIANÇA CA-CHAIN ##################################"
 ######################################################
 #GERANDO CADEIA DE CONFIANÇA ATRAVÉS DO ROOT E DO CA
 echo "GERANDO CADEIA DE CONFIANÇA ATRAVÉS DO ROOT E DO CA ======================================================="
 sh scripts/generate-ca-chain.sh
 echo "==========================================================================================================="
 
+
+echo "###################################### GERANDO CERTIFICADO DO SERVER ######################################"
 ######################################################
 #GERANDO E ASSINANDO CERTIFICADO PARA SER UTILIZADO NO SERVER
 echo "GERANDO E ASSINANDO CERTIFICADO E CHAVE PARA SEREM UTILIZADOS NO SERVER =================================="

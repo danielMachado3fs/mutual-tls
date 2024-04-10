@@ -2,17 +2,10 @@ const https = require("https");
 const fs = require("fs");
 
 const options = {
-	key: fs.readFileSync(
-		"/home/appmarketing/www/mutual-tls/ca/intermediate/private/gateway.appmarketing.com.br.key.pem",
-	),
-	cert: fs.readFileSync(
-		"/home/appmarketing/www/mutual-tls/ca/intermediate/certs/gateway.appmarketing.com.br.cert.pem",
-	),
-	ca: fs.readFileSync(
-		"/home/appmarketing/www/mutual-tls/ca/intermediate/certs/ca-chain.cert.pem",
-		// "/home/appmarketing/www/mutual-tls/ca/intermediate/certs/intermediate-ca.cert.pem",
-	),
-	passphrase: "appmarketing@gateway",
+	key: fs.readFileSync("/ca/intermediate/private/server.key.pem"),
+	cert: fs.readFileSync("/ca/intermediate/certs/server.cert.pem"),
+	ca: fs.readFileSync("/ca/intermediate/certs/ca-chain.cert.pem"),
+	passphrase: "456456",
 	requestCert: true,
 	rejectUnauthorized: true,
 };
@@ -22,4 +15,4 @@ https
 		res.writeHead(200);
 		res.end("Teste Certificados");
 	})
-	.listen(443);
+	.listen(4000);

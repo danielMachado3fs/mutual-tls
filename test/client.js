@@ -3,20 +3,13 @@ const fs = require("fs");
 
 const options = {
 	hostname: "localhost",
-	port: 443,
+	port: 4000,
 	path: "/",
 	method: "GET",
-	key: fs.readFileSync(
-		"/home/appmarketing/www/mutual-tls/ca/intermediate/private/teste.americavistos.com.br.key.pem",
-	),
-	cert: fs.readFileSync(
-		"/home/appmarketing/www/mutual-tls/ca/intermediate/certs/teste.americavistos.com.br.cert.pem",
-	),
-	ca: fs.readFileSync(
-		"/home/appmarketing/www/mutual-tls/ca/intermediate/certs/ca-chain.cert.pem",
-		// "/home/appmarketing/www/mutual-tls/ca/intermediate/csr/gateway.appmarketing.com.br.csr.pem",
-	),
-	passphrase: "america@cert",
+	key: fs.readFileSync("../ca/intermediate/private/client.key.pem"),
+	cert: fs.readFileSync("../ca/intermediate/certs/client.cert.pem"),
+	ca: fs.readFileSync("../ca/intermediate/certs/ca-chain.cert.pem"),
+	passphrase: "789789",
 	rejectUnauthorized: true,
 };
 

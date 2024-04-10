@@ -113,10 +113,14 @@ organizationalUnitName_default  = $organizationalUnitName_default
 commonName_default              = $commonName_default
 emailAddress_default            = $emailAddress_default
 
-[ sans ]
-DNS.0 = localhost
+[ sans_user ]
 DNS.1 = minhaempresa.com.br
-DNS.2 = 172.1.2.3
+IP.1 = 127.0.0.1
+email.1 = $emailAddress_default
+
+[ sans_server ]
+DNS.1 = serverempresa.com.br
+IP.1 = 127.0.0.1
 email.1 = $emailAddress_default
 
 [ v3_ca ]
@@ -125,7 +129,6 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid:always,issuer
 basicConstraints       = critical, CA:true
 keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
-subjectAltName         = @sans
 
 [ v3_intermediate_ca ]
 # Extensions for a typical intermediate CA ('man x509v3_config').
@@ -133,7 +136,6 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid:always,issuer
 basicConstraints       = critical, CA:true, pathlen:0
 keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
-subjectAltName         = @sans
 
 [ usr_cert ]
 # Extensions for client certificates ('man x509v3_config').
@@ -144,6 +146,7 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid,issuer
 keyUsage               = critical, nonRepudiation, digitalSignature, keyEncipherment
 extendedKeyUsage       = clientAuth, emailProtection
+subjectAltName         = @sans_user
 
 [ server_cert ]
 # Extensions for server certificates ('man x509v3_config').
@@ -154,6 +157,7 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid,issuer:always
 keyUsage               = critical, digitalSignature, keyEncipherment
 extendedKeyUsage       = serverAuth
+subjectAltName         = @sans_server
 
 [ crl_ext ]
 # Extension for CRLs ('man x509v3_config').

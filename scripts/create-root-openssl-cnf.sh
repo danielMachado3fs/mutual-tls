@@ -115,9 +115,8 @@ commonName_default              = $commonName_default
 emailAddress_default            = $emailAddress_default
 
 [ sans ]
-DNS.0 = localhost
-DNS.1 = minhaempresa.com.br
-DNS.2 = 172.1.2.3
+DNS.0 = gateway.appmarketing.com.br
+DNS.1 = 146.190.168.57
 email.1 = $emailAddress_default
 
 [ v3_ca ]

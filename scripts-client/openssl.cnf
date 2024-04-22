@@ -58,9 +58,16 @@ countryName_default             = BR
 stateOrProvinceName_default     = Minas Gerais
 localityName_default            = Timoteo
 organizationName_default        = Minha Empresa
-organizationalUnitName_default  = TI
-commonName_default              = minhaempresa.com.br
+organizationalUnitName_default  = Departamento de TI
+commonName_default              = empresaclient.com.br
 emailAddress_default            = suporte@minhaempresa.com.br
+
+[ sans ]
+DNS.1 = empresaclient.com.br
+DNS.2 = localhost
+IP.1 = 10.0.0.1
+IP.2 = 127.0.0.1
+email.1 = suporte@minhaempresa.com.br
 
 [ v3_ca ]
 # Extensions for a typical CA ('man x509v3_config').
@@ -68,6 +75,7 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid:always,issuer
 basicConstraints       = critical, CA:true
 keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
+subjectAltName         = @sans
 
 [ crl_ext ]
 # Extension for CRLs ('man x509v3_config').

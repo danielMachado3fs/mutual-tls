@@ -3,26 +3,32 @@
 read -p "Informe o path absoluto da pasta intermediate [/root/ca/intermediate]: " dirname
 dirname=${dirname:-/root/ca/intermediate}
 
-read -p "Informe o Country Name (2 letter code) [BR]: " countryName_default
+read -p "Informe o código do país [BR]: " countryName_default
 countryName_default=${countryName_default:-BR}
 
-read -p "Informe o State or Province Name [Minas Gerais]: " stateOrProvinceName_default
+read -p "Informe o estado ou província [Minas Gerais]: " stateOrProvinceName_default
 stateOrProvinceName_default=${stateOrProvinceName_default:-Minas Gerais}
 
-read -p "Informe o Locality Name [Timoteo]: " localityName_default
+read -p "Informe a cidade [Timoteo]: " localityName_default
 localityName_default=${localityName_default:-Timoteo}
 
-read -p "Informe o Organization Name [Minha Empresa]: " organizationName_default
+read -p "Informe o nome da empresa [Minha Empresa]: " organizationName_default
 organizationName_default=${organizationName_default:-Minha Empresa}
 
-read -p "Informe o Organizational Unit Name [TI]: " organizationalUnitName_default
-organizationalUnitName_default=${organizationalUnitName_default:-TI}
+read -p "Informe o nome da unidade organizacional [Departamento de TI]: " organizationalUnitName_default
+organizationalUnitName_default=${organizationalUnitName_default:-Departamento de TI}
 
-read -p "Informe o Common Name [minhaempresa.com.br]: " commonName_default
+read -p "Informe o domínio (Common Name (CN)) [minhaempresa.com.br]: " commonName_default
 commonName_default=${commonName_default:-minhaempresa.com.br}
 
-read -p "Informe o Email Address [suporte@minhaempresa.com.br]: " emailAddress_default
+read -p "Informe o endereço de Email [suporte@minhaempresa.com.br]: " emailAddress_default
 emailAddress_default=${emailAddress_default:-suporte@minhaempresa.com.br}
+
+read -p "Informe o IP [10.0.0.1]: " commonIP
+commonIP=${commonIP:-10.0.0.1}
+
+read -p "Tem algum outro domínio que pode ser validade pelo certificado? [$commonName_default]: " alternative_dns
+alternative_dns=${alternative_dns:-$commonName_default}
 
 # Definindo o conteúdo do arquivo openssl.cnf
 openssl_config="
@@ -120,9 +126,9 @@ IP.1 = 146.190.168.57
 IP.2 = 127.0.0.1
 
 [ sans_server ]
-DNS.1 = teste.pdvpix.com.br
+DNS.1 = $alternative_dns
 DNS.2 = localhost
-IP.1 = 146.190.168.57
+IP.1 = $commonIP
 IP.2 = 127.0.0.1
 email.1 = $emailAddress_default
 

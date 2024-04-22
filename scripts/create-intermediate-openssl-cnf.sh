@@ -114,13 +114,16 @@ commonName_default              = $commonName_default
 emailAddress_default            = $emailAddress_default
 
 [ sans_user ]
-DNS.1 = minhaempresa.com.br
-IP.1 = 127.0.0.1
-email.1 = $emailAddress_default
+DNS.1 = gateway-hml.appmarketing.com.br
+DNS.2 = localhost
+IP.1 = 146.190.168.57
+IP.2 = 127.0.0.1
 
 [ sans_server ]
-DNS.1 = serverempresa.com.br
-IP.1 = 127.0.0.1
+DNS.1 = teste.pdvpix.com.br
+DNS.2 = localhost
+IP.1 = 146.190.168.57
+IP.2 = 127.0.0.1
 email.1 = $emailAddress_default
 
 [ v3_ca ]

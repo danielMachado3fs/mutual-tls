@@ -21,17 +21,20 @@ echo "==========================================================================
 
 ######################################################
 #GERANDO UM ROOT CA
+read -p "Informe a senha para a key do rootCa [pass@RootCA]: " passRootCA
+passRootCA=${passRootCA:-pass@RootCA},
 #CRIA CHAVE PRIVADA ROOT
 echo "GERANDO CHAVE PRIVADA ROOT ================================================================================"
-source scripts/generate-root-private-key.sh
+source scripts/generate-root-private-key.sh $passRootCA
 echo "==========================================================================================================="
 
 #CRIA CERTIFICADO DO ROOT
 echo "GERANDO CERTIFICADO DO ROOT ==============================================================================="
-source scripts/generate-root-cert.sh
+source scripts/generate-root-cert.sh $passRootCA
 echo "==========================================================================================================="
 
-
+echo ""
+echo ""
 echo "######################################## GERANDO UM INTERMEDIATE CA ########################################"
 ######################################################
 #GERANDO O ARQUIVO ca/intermediate/openssl.cnf
@@ -41,19 +44,21 @@ echo "==========================================================================
 
 ######################################################
 #GERANDO UM CERTIFICADO DE AUTORIDADE INTERMEDIÁRIO
+read -p "Informe a senha para a key do intermediate-rootCa [pass@Intermediate!RootCA]: " passIntermediateRootCA
+passIntermediateRootCA=${passIntermediateRootCA:-pass@Intermediate!RootCA}
 #GERANDO UMA CHAVE INTERMEDIÁRIA
 echo "GERANDO UMA CHAVE INTERMEDIÁRIA ==========================================================================="
-source scripts/generate-intermediate-private-key.sh
+source scripts/generate-intermediate-private-key.sh $passIntermediateRootCA
 echo "==========================================================================================================="
 
 #GERANDO UM CERTIFICADO DE SOLICITAÇÃO DE ASSINATURA (CSR)
 echo "GERANDO UM CERTIFICADO DE SOLICITAÇÃO DE ASSINATURA (CSR) ================================================="
-source scripts/generate-intermediate-csr.sh
+source scripts/generate-intermediate-csr.sh $passIntermediateRootCA
 echo "==========================================================================================================="
 
 #GERANDO UM CERTIFICADO INTERMEDIÁRIO
 echo "GERANDO UM CERTIFICADO INTERMEDIÁRIO ======================================================================"
-source scripts/generate-intermediate-cert.sh
+source scripts/generate-intermediate-cert.sh $passRootCA
 echo "==========================================================================================================="
 
 #VERIFICANDO SE O CERTIFICADO INTERMEDIÁRIO É VÁLIDO ATRAVÉS DO ROOT
@@ -61,41 +66,11 @@ echo "VERIFICANDO SE O CERTIFICADO INTERMEDIÁRIO É VÁLIDO ATRAVÉS DO ROOT ==
 source scripts/intermediate-check-valid.sh
 echo "==========================================================================================================="
 
-
+echo ""
+echo ""
 echo "################################## GERANDO A CADEIA DE CONFIANÇA CA-CHAIN ##################################"
 ######################################################
 #GERANDO CADEIA DE CONFIANÇA ATRAVÉS DO ROOT E DO CA
 echo "GERANDO CADEIA DE CONFIANÇA ATRAVÉS DO ROOT E DO CA ======================================================="
 sh scripts/generate-ca-chain.sh
 echo "==========================================================================================================="
-
-
-echo "###################################### GERANDO CERTIFICADO DO SERVER ######################################"
-######################################################
-#GERANDO E ASSINANDO CERTIFICADO PARA SER UTILIZADO NO SERVER
-echo "GERANDO E ASSINANDO CERTIFICADO E CHAVE PARA SEREM UTILIZADOS NO SERVER =================================="
-read -p "Informe domínio do server. Será utilizado no nome dos arquivos gerados [minhaempresa.com.br]: " dominio
-dominio=${dominio:-minhaempresa.com.br}
-
-#GERANDO CHAVE
-echo "GERANDO CHAVE PRIVADA ====================================================================================="
-source scripts/generate-key-system.sh $dominio
-echo "==========================================================================================================="
-
-#GERANDO CERTIFICADO
-echo "GERANDO CERTIFICADO DE SOLICITAÇÃO DE ASSINATURA (CSR) >>>>>>> (INFORMAR SENHA DA KEY ANTERIOR) >>>>>>>===="
-source scripts/generate-csr-system.sh $dominio
-echo "==========================================================================================================="
-
-#ASSINANDO O CSR DO SERVER PARA GERAR O .cert
-echo "ASSINANDO O CSR DO SERVER PARA GERAR O .cert >>>>>>> (INFORMAR SENHA DO INTERMEDIATE KEY) >>>>>>> ========="
-source scripts/csr-server-sign.sh $dominio
-echo "==========================================================================================================="
-
-#VERIFICANDO SE O CERTIFICADO DO SERVER É VÁLIDO ATRAVÉS DO ROOT
-echo "VERIFICANDO SE O CERTIFICADO DO SERVER É VÁLIDO ATRAVÉS DA CADEIA DE CONFIANÇA ROOT - CA =================="
-source scripts/check-system-cert.sh $dominio
-echo "==========================================================================================================="
-
-#Após gerar o certificado do cervidor, é necessário rodar apenas o script client_certs_generate.sh para gerar
-#os certificados para os clients sem a necessidade de rodar o main_script.sh novamente.

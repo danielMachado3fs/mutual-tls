@@ -1,3 +1,6 @@
 ca
 ca-*/
 scripts-client/output
+scripts-client/openssl.cnf
+scripts-server/output
+scripts-server/openssl.cnf

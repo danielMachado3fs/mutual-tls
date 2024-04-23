@@ -1,4 +1,37 @@
+#!/bin/bash
+# Solicitando dados ao usuário
+read -p "Informe o path absoluto da sua pasta atual [/root]: " dirname
+dirname=${dirname:-/root}
 
+read -p "Informe o código do país [BR]: " countryName_default
+countryName_default=${countryName_default:-BR}
+
+read -p "Informe o estado ou província [Minas Gerais]: " stateOrProvinceName_default
+stateOrProvinceName_default=${stateOrProvinceName_default:-Minas Gerais}
+
+read -p "Informe a cidade [Timoteo]: " localityName_default
+localityName_default=${localityName_default:-Timoteo}
+
+read -p "Informe o nome da empresa [Minha Empresa]: " organizationName_default
+organizationName_default=${organizationName_default:-Minha Empresa}
+
+read -p "Informe o nome da unidade organizacional [Departamento de TI]: " organizationalUnitName_default
+organizationalUnitName_default=${organizationalUnitName_default:-Departamento de TI}
+
+read -p "Informe o domínio (Common Name (CN)) [minhaempresa.com.br]: " commonName_default
+commonName_default=${commonName_default:-minhaempresa.com.br}
+
+read -p "Informe o endereço de Email [suporte@minhaempresa.com.br]: " emailAddress_default
+emailAddress_default=${emailAddress_default:-suporte@minhaempresa.com.br}
+
+read -p "Informe o IP [10.0.0.1]: " commonIP
+commonIP=${commonIP:-10.0.0.1}
+
+read -p "Tem algum outro domínio que pode ser validade pelo certificado? [$commonName_default]: " alternative_dns
+alternative_dns=${alternative_dns:-$commonName_default}
+
+# Definindo o conteúdo do arquivo openssl.cnf
+openssl_config="
 # OpenSSL configuration file.
 
 # SHA-1 is deprecated, so use SHA-2 instead.
@@ -54,20 +87,20 @@ commonName                      = Common Name
 emailAddress                    = Email Address
 
 # Optionally, specify some defaults.
-countryName_default             = BR
-stateOrProvinceName_default     = Minas Gerais
-localityName_default            = Timoteo
-organizationName_default        = Minha Empresa
-organizationalUnitName_default  = Departamento de TI
-commonName_default              = empresaclient.com.br
-emailAddress_default            = suporte@minhaempresa.com.br
+countryName_default             = $countryName_default
+stateOrProvinceName_default     = $stateOrProvinceName_default
+localityName_default            = $localityName_default
+organizationName_default        = $organizationName_default
+organizationalUnitName_default  = $organizationalUnitName_default
+commonName_default              = $commonName_default
+emailAddress_default            = $emailAddress_default
 
 [ sans ]
-DNS.1 = empresaclient.com.br
+DNS.1 = $alternative_dns
 DNS.2 = localhost
-IP.1 = 10.0.0.1
+IP.1 = $commonIP
 IP.2 = 127.0.0.1
-email.1 = suporte@minhaempresa.com.br
+email.1 = $emailAddress_default
 
 [ v3_ca ]
 # Extensions for a typical CA ('man x509v3_config').
@@ -88,4 +121,7 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid,issuer
 keyUsage               = critical, digitalSignature
 extendedKeyUsage       = critical, OCSPSigning
+"
 
+# Escrevendo o conteúdo do arquivo openssl.cnf
+echo "$openssl_config" > $dirname/openssl.cnf

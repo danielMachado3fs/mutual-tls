@@ -8,16 +8,17 @@
 
 #GERAR KEY UTILIZANDO A SENHA PASSADA COMO PARAMETRO
 # Verifica se o número de argumentos está correto
-if [ "$#" -ne 2 ]; then
-    echo "Uso: $0 <URL> <senha>"
+if [ "$#" -ne 3 ]; then
+    echo "Uso: $0 <FOLDER_PATH> <URL> <senha>"
     exit 1
 fi
 
-URL="$1"
-SENHA="$2"
+FOLDER_PATH="$1"
+URL="$2"
+SENHA="$3"
 
 openssl genrsa -aes256 \
   -passout pass:"$SENHA" \
-  -out "ca/intermediate/server/$URL/private/$URL.key.pem" 2048
+  -out "$FOLDER_PATH/output/$URL.key.pem" 2048
 
-chmod 400 "ca/intermediate/server/$URL/private/$URL.key.pem"
+chmod 400 "$FOLDER_PATH/output/$URL.key.pem"

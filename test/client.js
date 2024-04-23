@@ -6,11 +6,13 @@ const options = {
 	port: 4000,
 	path: "/",
 	method: "GET",
-	key: fs.readFileSync("../ca/intermediate/private/client.key.pem"),
-	cert: fs.readFileSync("../ca/intermediate/certs/client.cert.pem"),
-	ca: fs.readFileSync("../ca/intermediate/certs/ca-chain.cert.pem"),
-	passphrase: "789789",
-	rejectUnauthorized: true,
+	key: fs.readFileSync(
+		"/home/appmarketing/www/mutual-tls/scripts-client/output/client.com.br.key.pem",
+	),
+	cert: fs.readFileSync(
+		"/home/appmarketing/www/mutual-tls/scripts-client/output/client.com.br.cert.pem",
+	),
+	passphrase: "pass@key",
 };
 
 https

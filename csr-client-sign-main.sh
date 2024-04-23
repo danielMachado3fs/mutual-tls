@@ -5,12 +5,12 @@ read -p "Informe domínio do client ou o nome do arquivo csr: " dominio
 dominio=${dominio:-minhaempresa.com.br}
 read -p "Informe a senha da intermediate-key [pass@Intermediate!RootCA]: " passIntermediateKey
 passIntermediateKey=${passIntermediateKey:-pass@Intermediate!RootCA}
-read -p "Informe o path do diretório csr do cliente [mutual-tls/scripts-client/output]: " pathCSR
-pathCSR=${pathCSR:-mutual-tls/scripts-client/output}
+read -p "Informe o path do diretório csr do cliente [root/mutual-tls/scripts-client/output]: " pathCSR
+pathCSR=${pathCSR:-/root/mutual-tls/scripts-client/output}
 read -p "Informe o path do diretório arquivo de configuração openssl.cnf intermediário [ca/intermediate]: " pathIntermediate
 pathIntermediate=${pathIntermediate:-ca/intermediate}
-read -p "Informe o path do diretório da ca-chain [ca/intermediate/certs]: " pathcachain
-pathcachain=${pathcachain:-ca/intermediate/certs}
+read -p "Informe o path do diretório da ca-chain [root/mutual-tls/ca/intermediate/certs]: " pathcachain
+pathcachain=${pathcachain:-/root/mutual-tls/ca/intermediate/certs}
 
 # #ASSINANDO O CSR DO CLIENT PARA GERAR O .cert
 echo "ASSINANDO O CSR DO CLIENT PARA GERAR O .cert =============================================================="

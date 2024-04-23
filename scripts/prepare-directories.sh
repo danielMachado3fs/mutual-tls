@@ -9,7 +9,7 @@ touch index.txt
 echo 1000 > serial
 
 cd intermediate
-mkdir certs crl csr newcerts private clients server
+mkdir certs crl csr newcerts private
 chmod 700 private
 touch index.txt
 echo 1000 > serial

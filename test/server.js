@@ -2,10 +2,16 @@ const https = require("https");
 const fs = require("fs");
 
 const options = {
-	key: fs.readFileSync("/ca/intermediate/private/server.key.pem"),
-	cert: fs.readFileSync("/ca/intermediate/certs/server.cert.pem"),
-	ca: fs.readFileSync("/ca/intermediate/certs/ca-chain.cert.pem"),
-	passphrase: "456456",
+	key: fs.readFileSync(
+		"/home/appmarketing/www/mutual-tls/scripts-server/output/server.com.br.key.pem",
+	),
+	cert: fs.readFileSync(
+		"/home/appmarketing/www/mutual-tls/scripts-server/output/server.com.br.cert.pem",
+	),
+	ca: fs.readFileSync(
+		"/home/appmarketing/www/mutual-tls/ca/intermediate/certs/ca-chain.cert.pem",
+	),
+	passphrase: "pass@key",
 	requestCert: true,
 	rejectUnauthorized: true,
 };

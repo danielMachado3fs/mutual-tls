@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "GERANDO KEY E CERTIFICADO DE SOLICITAÇÃO DE ASSINATURA (CSR) ============================================="
-read -p "Informe o path absoluto da sua pasta atual [/root]: " dirname
-dirname=${dirname:-/root}
+read -p "Informe o path absoluto da sua pasta atual [/root/scripts-client]: " dirname
+dirname=${dirname:-/root/scripts-client}
 read -p "Informe o seu domínio que também será utilizado para nomear os arquivos [minhaempresa.com.br]: " dominio
 dominio=${dominio:-minhaempresa.com.br}
 read -p "Informe a senha da key [pass@key]: " pass

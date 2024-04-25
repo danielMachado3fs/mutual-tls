@@ -1,6 +1,13 @@
 #!/bin/bash
 
-echo "ASSINANDO CSR DO CLIENT ==================================="
+echo ""
+echo "******************************************************* ATENÇÃO *******************************************************"
+echo ""
+echo "LEMBRE-SE DE CONFIGURAR OS SANs REFERENTE A EXTENÇÃO [sans_user] NO ARQUIVO DE CONFIGURAÇÃO DA INTERMEDIATE CA (openssl.cnf)"
+echo ""
+echo "******************************************************* ATENÇÃO *******************************************************"
+echo ""
+echo "ASSINANDO CSR DO CLIENT ==================================================================================="
 read -p "Informe domínio do client ou o nome do arquivo csr: " dominio
 dominio=${dominio:-minhaempresa.com.br}
 read -p "Informe a senha da intermediate-key [pass@Intermediate!RootCA]: " passIntermediateKey

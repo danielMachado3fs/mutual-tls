@@ -1,7 +1,7 @@
 #!/bin/bash
 # Solicitando dados ao usuário
-read -p "Informe o path absoluto da sua pasta atual [/root]: " dirname
-dirname=${dirname:-/root}
+read -p "Informe o path absoluto da sua pasta atual [/root/scripts-server]: " dirname
+dirname=${dirname:-/root/scripts-server}
 
 read -p "Informe o código do país [BR]: " countryName_default
 countryName_default=${countryName_default:-BR}

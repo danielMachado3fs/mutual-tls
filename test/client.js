@@ -7,17 +7,15 @@ const options = {
 	path: "/",
 	method: "GET",
 	key: fs.readFileSync(
-		"/home/danielmachado/www/mutual-tls/scripts-client/output/gateway-hml.appmarketing.com.br.key.pem",
+		"/home/danielmachado/www/mutual-tls/output-certs/clients/pdvpix/gateway-hml/mtls-client.key",
 	),
 	cert: fs.readFileSync(
-		"/home/danielmachado/www/mutual-tls/scripts-client/output/gateway-hml.appmarketing.com.br.cert.pem",
+		"/home/danielmachado/www/mutual-tls/output-certs/clients/pdvpix/gateway-hml/mtls-client.crt",
 	),
-	passphrase: "gateway@KeyPdv-9Md0g8@hml",
-	ciphers: "DEFAULT:@SECLEVEL=0",
-	// minVersion: "TLSv1.2",
-	// ca: fs.readFileSync(
-	// 	"/home/danielmachado/www/mutual-tls/ca/intermediate/certs/ca-chain.cert.pem",
-	// ),
+	ca: fs.readFileSync(
+		"/home/danielmachado/www/mutual-tls/output-certs/server/pdvpix/mtls-server.crt",
+	),
+	passphrase: "123456",
 };
 
 https

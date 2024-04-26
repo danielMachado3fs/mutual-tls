@@ -1,0 +1,30 @@
+
+
+[ req ]
+# Options for the 'req' tool ('man req').
+default_bits        = 2048
+prompt              = no
+distinguished_name  = req_distinguished_name
+string_mask         = utf8only
+req_extensions      = ext
+
+[ req_distinguished_name ]
+# See <https://en.wikipedia.org/wiki/Certificate_signing_request>.
+# countryName (C)                 = Country Name (2 letter code)
+# stateOrProvinceName (ST)        = State or Province Name
+# localityName (L)                = Locality Name
+# organizationName (O)            = Organization Name
+# organizationalUnitName (OU)     = Organizational Unit Name
+# commonName (CN)                 = Common Name
+# emailAddress (emailAddress)     = Email Address
+C                                 = BR
+ST                                = Minas Gerais
+L                                 = Timoteo
+O                                 = Minha Empresa
+OU                                = Departamento de TI
+CN                                = minhaempresa.com.br
+emailAddress                      = suporte@minhaempresa.com.br
+
+[ ext ]
+subjectAltName         = DNS:minhaempresa.com.br,DNS:localhost,IP:10.0.0.1,IP:127.0.0.1
+
